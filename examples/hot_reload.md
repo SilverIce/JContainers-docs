@@ -20,9 +20,11 @@ end
 return M
 ```
 
-If this file is `my_mod/development/init.lua`, an entry from Papyrus can invoke
-it as `development.reloadLua()`. Edit the module after that call completes; the
-next Lua entry will observe the new loose-file contents.
+If this file is `MyMod/development.lua`, an entry from Papyrus can invoke it as
+`require('MyMod.development').reloadLua()`. The directory-module layout
+`MyMod/development/init.lua` works with the same `require` name. Edit the
+module after that call completes; the next Lua entry will observe the new
+loose-file contents.
 
 The invalidation is runtime-wide rather than local to the calling module or a
 named context. Idle pooled contexts are discarded immediately. A context that
@@ -54,7 +56,7 @@ local function developmentLoop()
         if command == 'reload' then
             JC_Internals.flush_modules()
         else
-            require('my_mod.simulation.commands').execute(command)
+            require('MyMod.simulation.commands').execute(command)
         end
     end
 end

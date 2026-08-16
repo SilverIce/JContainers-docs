@@ -19,7 +19,7 @@ Bool Function ApplyDamage(Int actorState, Float damage, String source)
     JArray_addStr(transport, source)
 
     Return JLua_evalLuaBool(
-        "return LockedState.applyDamage(args[1], args[2], args[3])",
+        "return LockedStateExample.applyDamage(args[1], args[2], args[3])",
         transport,
         minLife = True
     )
@@ -34,9 +34,11 @@ the lifetime of `actorState`, which is owned elsewhere.
 
 ## Lua
 
-Save this module as
-`Data/SKSE/Plugins/JC4Data/lua/LockedState/init.lua`. The evaluated expression
-loads this entry module automatically when it first references `LockedState`.
+The Papyrus expression above uses the mod-specific entry-module name
+`LockedStateExample`, so this example places the Lua code at
+`Data/SKSE/Plugins/JC4Data/lua/LockedStateExample/init.lua`. The evaluated
+expression loads it automatically when it first references
+`LockedStateExample`.
 
 ```lua
 local M = {}

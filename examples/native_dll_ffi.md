@@ -37,10 +37,12 @@ extern "C"
 
 ## Lua FFI Module
 
-Save this module as
-`Data/SKSE/Plugins/JC4Data/lua/NativeExample/init.lua`. The JContainers Lua
-environment already exposes the global `ffi` table, so no additional LuaJIT
-module import is required.
+The code can be placed in a regular module such as
+`Data/SKSE/Plugins/JC4Data/lua/MyMod/NativeExample.lua`, where `MyMod` is the
+mod's namespace. Other modules can load it with
+`require('MyMod.NativeExample')`. The JContainers Lua environment already
+exposes the global `ffi` table, so no additional LuaJIT module import is
+required.
 
 ```lua
 ffi.cdef[[

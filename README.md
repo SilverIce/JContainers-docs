@@ -23,6 +23,19 @@ cost. VS Code users can install the EmmyLua extension and make the release's
 `JC4Data/lua` directory available to their workspace for completion, type
 information, and signature help.
 
+## Module Layout
+
+Keep a mod's modules under its own top-level namespace directory. Within a
+namespace such as `MyMod/`, a module may be stored either as a single file such
+as `MyMod/Feature.lua` or as a directory entry module at
+`MyMod/Feature/init.lua`. `require('MyMod.Feature')` supports both layouts.
+
+An expression evaluated through `JLua_evalLua*` may refer to
+`MyMod.function()` directly when the namespace entry point is `MyMod/init.lua`.
+This is a convenient entry-point syntax, not a requirement that every module
+inside the namespace be named `init.lua`. The examples use both layouts
+according to what they demonstrate.
+
 ## Example Index
 
 - [Fire a Papyrus Event and Continue with a Lua Callback](examples/papyrus_event_callback.md)

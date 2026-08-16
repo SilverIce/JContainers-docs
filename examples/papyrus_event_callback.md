@@ -17,9 +17,9 @@ loop; creation of that context and its update loop are outside this example.
 
 ## Lua
 
-Save this module as
-`Data/SKSE/Plugins/JC4Data/lua/EventCallbackExample/init.lua`. Evaluated Lua
-code can invoke it as `EventCallbackExample.showMessageBox()` without an
+This example uses the directory entry module
+`Data/SKSE/Plugins/JC4Data/lua/EventCallbackExample/init.lua`. That layout lets
+evaluated Lua code invoke `EventCallbackExample.showMessageBox()` without an
 explicit `require`.
 
 ```lua
