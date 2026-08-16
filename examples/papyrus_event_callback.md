@@ -108,6 +108,8 @@ to Lua without starting or owning the Lua workflow itself.
 ```papyrus
 Scriptname JC4PapyrusEventHandler extends Quest
 
+Import JContainers_API4
+
 Event ShowMessageBox(String message, Int buttons, Int callback)
     Int buttonIndex = SkyMessage.ShowArray(
         message,

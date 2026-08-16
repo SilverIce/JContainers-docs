@@ -12,6 +12,8 @@ handle to each context.
 ## Papyrus
 
 ```papyrus
+Import JContainers_API4
+
 Bool Function ApplyDamage(Int actorState, Float damage, String source)
     Int transport = JArray_object()
     JArray_addObj(transport, actorState)
