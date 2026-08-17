@@ -12,7 +12,7 @@ workflow by asking Papyrus to cast a Spell.
 The example uses `SkyMessage.ShowArray` from the SkyrimScripting MessageBox SKSE
 plugin so Lua can supply both the message and a dynamic list of buttons. The
 surrounding mod is assumed to submit `update()` to the
-`MyModEventCallback` Lua execution context from a Papyrus-driven update
+`MyMod` Lua execution context from a Papyrus-driven update
 loop; creation of that context and its update loop are outside this example.
 
 ## Lua
@@ -75,14 +75,14 @@ end
 -- Somewhere in Papyrus:
 --
 -- Event OnUpdate()
---     JLua_evalLuaAsync("EventCallbackExample.update(1.0)", 0, "MyModEventCallback")
+--     JLua_evalLuaAsync("EventCallbackExample.update(1.0)", 0, luaCtx = "MyMod")
 --     RegisterForSingleUpdate(1.0)
 -- EndEvent
 
 return M
 ```
 
-`MyModEventCallback` is the named Lua execution context in this example. All
+`MyMod` is the named Lua execution context in this example. All
 work submitted to that context is processed in order and uses the same Lua
 state. This workflow therefore does not need `JLockMgr`; object locking is
 useful when shared state can be reached from different execution contexts.
@@ -123,7 +123,7 @@ Event ShowMessageBox(String message, Int buttons, Int callback)
     JArray_addObj(callback, buttons)
     JLua_evalLuaCallbackAsync(
         callback,
-        "MyModEventCallback",
+        luaCtx = "MyMod",
         minLife = True
     )
 EndEvent
