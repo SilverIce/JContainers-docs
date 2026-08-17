@@ -29,7 +29,7 @@ EndFunction
 ```
 
 Separate Papyrus callers can call `ApplyDamage` with the same `actorState`.
-Because no named context is requested, concurrent calls may use different
+Because no `luaCtx` key is supplied, concurrent calls may use different
 contexts from the Lua pool. The transport array is temporary, so
 `minLife = True` allows it to be collected after the call. It does not change
 the lifetime of `actorState`, which is owned elsewhere.

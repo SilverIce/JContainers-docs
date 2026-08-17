@@ -11,9 +11,9 @@ workflow by asking Papyrus to cast a Spell.
 
 The example uses `SkyMessage.ShowArray` from the SkyrimScripting MessageBox SKSE
 plugin so Lua can supply both the message and a dynamic list of buttons. The
-surrounding mod is assumed to submit `update()` to the
-`MyMod` Lua execution context from a Papyrus-driven update
-loop; creation of that context and its update loop are outside this example.
+surrounding mod is assumed to submit `update()` with `luaCtx = "MyMod"` from a
+Papyrus-driven update loop. JContainers uses that key to select or create a
+specific Lua execution context; the update loop itself is outside this example.
 
 ## Lua
 
@@ -82,9 +82,10 @@ end
 return M
 ```
 
-`MyMod` is the named Lua execution context in this example. All
-work submitted to that context is processed in order and uses the same Lua
-state. This workflow therefore does not need `JLockMgr`; object locking is
+`MyMod` is the `luaCtx` key in this example, not the context or its state.
+JContainers uses repeated submissions with that key to select the same concrete
+Lua execution context. Its work is processed in order and uses that context's
+Lua state. This workflow therefore does not need `JLockMgr`; object locking is
 useful when shared state can be reached from different execution contexts.
 
 When the module is loaded, `JString.decodeForm` resolves the Quest, Player, and
@@ -176,6 +177,7 @@ Player, Spell, label, and module table already exist as local values. The empty
 `M.reportMessageBoxSelection` placeholder demonstrates that V2 can capture a
 user-module reference and restore it when the callback is evaluated.
 
-`JLua_evalLuaCallbackAsync` evaluates the callback in the same named context
-used by the initial call. The explicit `minLife = True` lets the callback
-transport be collected after evaluation when nothing else owns it.
+`JLua_evalLuaCallbackAsync` receives the same `luaCtx` key as the initial call,
+so JContainers selects the same concrete context for the callback. The explicit
+`minLife = True` lets the callback transport be collected after evaluation when
+nothing else owns it.

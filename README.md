@@ -39,8 +39,8 @@ according to what they demonstrate.
 ## Example Index
 
 - [Fire a Papyrus Event and Continue with a Lua Callback](examples/papyrus_event_callback.md)
-  shows a complete Lua-to-Papyrus-to-Lua round trip through a named execution
-  context.
+  shows a complete Lua-to-Papyrus-to-Lua round trip through a context selected
+  by a `luaCtx` key.
 - [Synchronize Updates to a Shared Object](examples/object_locking.md) shows
   pooled Lua execution contexts using a transported JContainers object as
   their lock key.
