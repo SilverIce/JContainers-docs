@@ -9,10 +9,11 @@ implements API version 4:
 Data/SKSE/Plugins/JC4Data/lua/jc/jcdefs.lua
 ```
 
-`jcdefs.lua` is the canonical declaration of the public Lua API. It lists the
-available global tables, functions, parameter and return types, generic
-collection types, and short API notes. The copy shipped with the installed
-release is authoritative because it necessarily matches that runtime version.
+`jcdefs.lua` is the canonical declaration of the globals, types, and functions
+provided by JContainers. It also declares the LuaJIT globals needed by its type
+annotations, but it does not attempt to redeclare the complete Lua and LuaJIT
+environment. The copy shipped with the installed release is authoritative
+because it necessarily matches that runtime version.
 
 For convenient browsing and downloading, this repository also includes the
 current [`jcdefs.lua`](api/jcdefs.lua). It is updated with the documentation but
@@ -22,6 +23,25 @@ The declarations and examples use EmmyLua annotations, which have no runtime
 cost. VS Code users can install the EmmyLua extension and make the release's
 `JC4Data/lua` directory available to their workspace for completion, type
 information, and signature help.
+
+## Lua Environment
+
+User modules and `JLua_evalLua*` expressions run with a curated global
+environment. The following Lua and LuaJIT facilities are available alongside
+the JContainers globals declared by `jcdefs.lua`:
+
+- library tables: `math`, `io`, `string`, `table`, `bit`, `os`, `debug`,
+  `coroutine`, `ffi`, and `jit`;
+- base functions: `pairs`, `ipairs`, `next`, `select`, `error`, `assert`,
+  `tonumber`, `tostring`, `type`, `print`, `pcall`, `xpcall`, `collectgarbage`,
+  `loadfile`, `load`, `setfenv`, `getfenv`, `setmetatable`, and `getmetatable`;
+- the JContainers module loaders `require` and `weak_require`.
+
+`jit_zone` is also exposed when the corresponding LuaJIT module is available.
+`require` is the JContainers loader for modules below `JC4Data/lua`, not direct
+access to Lua's package loader. This is a curated environment rather than the
+complete default Lua global table; globals not listed here, such as `package`,
+should not be assumed to be available to user modules.
 
 ## Module Layout
 

@@ -1,5 +1,9 @@
 ---@meta
 
+---This file declares the globals and types provided by JContainers. It does
+---not redeclare the complete Lua and LuaJIT global environment exposed to user
+---modules; see the Lua environment section in the documentation.
+
 ---@alias JObjectInstance JArrayInstance|JMapInstance|JFormMapInstance
 
 ---@alias Value any
