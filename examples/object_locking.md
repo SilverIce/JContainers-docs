@@ -20,11 +20,10 @@ Bool Function ApplyDamage(Int actorState, Float damage, String source)
     JArray_addFlt(transport, damage)
     JArray_addStr(transport, source)
 
-    Return JLua_evalLuaBool(
-        "return LockedStateExample.applyDamage(args[1], args[2], args[3])",
-        transport,
-        minLife = True
-    )
+    Return JLua_evalLuaBool( \
+        "return LockedStateExample.applyDamage(args[1], args[2], args[3])", \
+        transport, \
+        minLife = True)
 EndFunction
 ```
 

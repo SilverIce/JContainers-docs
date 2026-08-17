@@ -112,21 +112,19 @@ Scriptname MyModPapyrusEventHandler extends Quest
 Import JContainers_API4
 
 Event ShowMessageBox(String message, Int buttons, Int callback)
-    Int buttonIndex = SkyMessage.ShowArray(
-        message,
-        JArray_asStringArray(buttons),
-        getIndex = True
-    ) as Int
+    Int buttonIndex = SkyMessage.ShowArray( \
+        message, \
+        JArray_asStringArray(buttons), \
+        getIndex = True) as Int
 
     ; Lua uses one-based indexing. SkyMessage returns -1 when no result is
     ; available, which becomes 0 and therefore does not select a button.
     JArray_addInt(callback, buttonIndex + 1)
     JArray_addObj(callback, buttons)
-    JLua_evalLuaCallbackAsync(
-        callback,
-        luaCtx = "MyMod",
-        minLife = True
-    )
+    JLua_evalLuaCallbackAsync( \
+        callback, \
+        luaCtx = "MyMod", \
+        minLife = True)
 EndEvent
 
 Event CastSpell(Form casterForm, Form spellForm)
