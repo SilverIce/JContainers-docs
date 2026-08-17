@@ -12,7 +12,7 @@ workflow by asking Papyrus to cast a Spell.
 The example uses `SkyMessage.ShowArray` from the SkyrimScripting MessageBox SKSE
 plugin so Lua can supply both the message and a dynamic list of buttons. The
 surrounding mod is assumed to submit `update()` to the
-`JC4EventCallbackExample` Lua execution context from a Papyrus-driven update
+`MyModEventCallback` Lua execution context from a Papyrus-driven update
 loop; creation of that context and its update loop are outside this example.
 
 ## Lua
@@ -75,14 +75,14 @@ end
 -- Somewhere in Papyrus:
 --
 -- Event OnUpdate()
---     JLua_evalLuaAsync("EventCallbackExample.update(1.0)", 0, "JC4EventCallbackExample")
+--     JLua_evalLuaAsync("EventCallbackExample.update(1.0)", 0, "MyModEventCallback")
 --     RegisterForSingleUpdate(1.0)
 -- EndEvent
 
 return M
 ```
 
-`JC4EventCallbackExample` is the named Lua execution context in this example. All
+`MyModEventCallback` is the named Lua execution context in this example. All
 work submitted to that context is processed in order and uses the same Lua
 state. This workflow therefore does not need `JLockMgr`; object locking is
 useful when shared state can be reached from different execution contexts.
@@ -101,12 +101,12 @@ events broadcast to subscribers, not for a call directed at a known receiver.
 
 ## Papyrus
 
-Create a Quest named `JC4PapyrusEventHandlerQuest` and attach the script below.
+Create a Quest named `MyModPapyrusEventHandlerQuest` and attach the script below.
 The script acts as a small Papyrus adapter; it can expose UI and game operations
 to Lua without starting or owning the Lua workflow itself.
 
 ```papyrus
-Scriptname JC4PapyrusEventHandler extends Quest
+Scriptname MyModPapyrusEventHandler extends Quest
 
 Import JContainers_API4
 
@@ -123,7 +123,7 @@ Event ShowMessageBox(String message, Int buttons, Int callback)
     JArray_addObj(callback, buttons)
     JLua_evalLuaCallbackAsync(
         callback,
-        "JC4EventCallbackExample",
+        "MyModEventCallback",
         minLife = True
     )
 EndEvent
