@@ -2,6 +2,13 @@
 
 Examples and reference material for the Lua API provided by JContainers.
 
+## Try It Offline
+
+The [JContainers Lua Playground](https://github.com/SilverIce/JContainers-Lua-Playground)
+is a small offline sandbox for experimenting with the Lua API without launching
+Skyrim. It provides an interactive command loop, module reloading, a minimal
+example mod, and launchers for Windows and Wine.
+
 ## Example Index
 
 - [Fire a Papyrus Event and Continue with a Lua Callback](examples/papyrus_event_callback.md)
